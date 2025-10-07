@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"dz1/internal/task_2"
+	"dz1/internal/task_3"
 )
 
 func main() {
@@ -10,4 +11,9 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	a := []int{1, 2, 3}
+	var p *[]int = &a
+	task3.ScaleSlice(p, 0)
+	fmt.Println(a)
 }
