@@ -41,12 +41,12 @@ func main() {
 	firstNumber, secondNumber, err = task1.FilterCommonDigits(-123, -345)
 	fmt.Printf("FilterCommonDigits(-123, -345) = (%d, %d, %v), expected: (0, 0, ErrNegNums)\n", firstNumber, secondNumber, err)
 
-	err = task2.FindCommonWords("test.txt", "internal/task_2/files/devil_trigger.txt", "internal/task_2/files/bury_the_light.txt")
+	err = task2.FindCommonWords("internal/task_2/files/test.txt", "internal/task_2/files/devil_trigger.txt", "internal/task_2/files/bury_the_light.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	a := []int{1, 2, 3}
-	task3.ScaleSlice(&a, 5)
+	a := []int{}
+	task3.ScaleSlice(nil, 5)
 	fmt.Println(a)
 }
