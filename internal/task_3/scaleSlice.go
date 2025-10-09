@@ -1,8 +1,12 @@
 package task3
 
 func ScaleSlice(slice *[]int, scaleFactor uint32) error {
+	if slice == nil {
+		return nil
+	}
+	
 	if scaleFactor == 0 {
-		*slice = make([]int, 0)
+		*slice = nil
 		return nil
 	}
 

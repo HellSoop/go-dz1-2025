@@ -46,9 +46,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	a := []int{1, 2, 5}
-	task3.ScaleSlice(&a, 5)
-	fmt.Println(a)
-
-
+	var a []int
+	err = task3.ScaleSlice(&a, 3)
+	fmt.Println(err)
 }
