@@ -37,7 +37,10 @@ func FindCommonWords(outputFilename string, inputFilenames ...string) error {
 	}
 
 	// write output
-	file, _ := os.Create(outputFilename)
+	file, err := os.Create(outputFilename)
+	if err != nil {
+		return ErrOpenFile
+	}
 	defer file.Close()
 
 	result_line := ""
