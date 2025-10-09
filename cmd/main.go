@@ -116,8 +116,36 @@ func main() {
 
 	//task 3 test
 	fmt.Println("\n\nTask 3 tests:")
-	// some tests
-	var a []int
+	
+	// simple test
+	a := []int{1, 2, 3}
+	fmt.Printf("ScaleSlice(%v, 3) = ", a)
 	err = task3.ScaleSlice(&a, 3)
-	fmt.Println(err)
+	fmt.Printf("(%v), excepted (nil)\nSclaed slice: %v\n", err, a)
+
+	// scaleFactor = 1
+	a = a[:3]
+	fmt.Printf("ScaleSlice(%v, 1) = ", a)
+	err = task3.ScaleSlice(&a, 1)
+	fmt.Printf("(%v), excepted (nil)\nSclaed slice: %v\n", err, a)
+
+	// scaleFactor = 0
+	fmt.Printf("ScaleSlice(%v, 0) = ", a)
+	err = task3.ScaleSlice(&a, 0)
+	fmt.Printf("(%v), excepted (nil)\nSclaed slice: %v\n", err, a)
+
+	// empty slice
+	fmt.Printf("ScaleSlice(%v, 10) = ", a)
+	err = task3.ScaleSlice(&a, 10)
+	fmt.Printf("(%v), excepted (nil)\nSclaed slice: %v\n", err, a)
+
+	// overflow test
+	a = make([]int, 4200000)
+	err = task3.ScaleSlice(&a, 4200000)
+	fmt.Printf("ScaleSlice(<slice of 4200000 zeros>, 4200000) = (%v), excepted (ErrOverflow)\n", err)
+	a = nil  // free memory
+
+	// nil slice
+	err = task3.ScaleSlice(nil, 10)
+	fmt.Printf("ScaleSlice(nil, 10) = (%v), excepted (nil)\n", err)
 }
