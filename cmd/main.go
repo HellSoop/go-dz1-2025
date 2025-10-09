@@ -23,7 +23,7 @@ func main() {
 
 	// Example call 4: numbers are the same
 	firstNumber, secondNumber, err = task1.FilterCommonDigits(123, 123)
-	fmt.Printf("FilterCommonDigits(123, 123) = (%d, %d, %v), expected: (0, 0, ErrEmptyNUm)\n", firstNumber, secondNumber, err)
+	fmt.Printf("FilterCommonDigits(123, 123) = (%d, %d, %v), expected: (0, 0, ErrEmptyNum)\n", firstNumber, secondNumber, err)
 
 	// Example call 5: big numbers
 	firstNumber, secondNumber, err = task1.FilterCommonDigits(12300405502345602, 9988699870045882)
@@ -40,6 +40,18 @@ func main() {
 	// Example call 8: negative numbers
 	firstNumber, secondNumber, err = task1.FilterCommonDigits(-123, -345)
 	fmt.Printf("FilterCommonDigits(-123, -345) = (%d, %d, %v), expected: (0, 0, ErrNegNums)\n", firstNumber, secondNumber, err)
+	
+	// Example call 9:
+	firstNumber, secondNumber, err = task1.FilterCommonDigits(123456789, 987654321)
+	fmt.Printf("FilterCommonDigits(123456789, 987654321) = (%d, %d, %v), expected: (0, 0, ErrEmptyNum)\n", firstNumber, secondNumber, err)
+
+	// Example call 10:
+	firstNumber, secondNumber, err = task1.FilterCommonDigits(123, 0)
+	fmt.Printf("FilterCommonDigits(123, 0) = (%d, %d, %v), expected: (123, 0, nil)\n", firstNumber, secondNumber, err)
+
+	// Example call 11:
+	firstNumber, secondNumber, err = task1.FilterCommonDigits(1023, 145)
+	fmt.Printf("FilterCommonDigits(1023, 145) = (%d, %d, %v), expected: (23, 45, nil)\n", firstNumber, secondNumber, err)
 
 	err = task2.FindCommonWords("intal/ts/test.txt", "internal/task_2/files/case_test1.txt", "internal/task_2/files/case_test2.txt")
 	if err != nil {
