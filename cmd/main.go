@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"dz1/internal/task_1"
 	"dz1/internal/task_2"
 	"dz1/internal/task_3"
@@ -9,6 +10,7 @@ import (
 
 func main() {
 	// Check task1
+	fmt.Println("Task 1 tests:")
 	// Example call 1: numbers are not the same
 	firstNumber, secondNumber, err := task1.FilterCommonDigits(123, 456)
 	fmt.Printf("FilterCommonDigits(123, 456) = (%d, %d, %v), expected: (123, 456, nil)\n", firstNumber, secondNumber, err)
@@ -53,11 +55,68 @@ func main() {
 	firstNumber, secondNumber, err = task1.FilterCommonDigits(1023, 145)
 	fmt.Printf("FilterCommonDigits(1023, 145) = (%d, %d, %v), expected: (23, 45, nil)\n", firstNumber, secondNumber, err)
 
-	err = task2.FindCommonWords("intal/ts/test.txt", "internal/task_2/files/case_test1.txt", "internal/task_2/files/case_test2.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
+	// task 2 tests
+	fmt.Println("\n\nTask 2 tests:")
+	result_file := "internal/task_2/files/test.txt"
+	// simple test
+	err = task2.FindCommonWords(result_file, "internal/task_2/files/devil_trigger.txt", "internal/task_2/files/bury_the_light.txt")
+	data, _ := os.ReadFile(result_file)
+	fmt.Printf("FindCommonWords(%s, \"internal/task_2/files/devil_trigger.txt\", \"internal/task_2/files/bury_the_light.txt\") = (%v), expected (nil)\n", result_file, err)
+	fmt.Printf("%s file contains: \"%s\"\n", result_file, data)
 
+	// single file test
+	err = task2.FindCommonWords(result_file, "internal/task_2/files/case_test1.txt")
+	data, _ = os.ReadFile(result_file)
+	fmt.Printf("FindCommonWords(%s, \"internal/task_2/files/case_test1.txt\") = (%v), expected (nil)\n", result_file, err)
+	fmt.Printf("%s file contains: \"%s\"\n", result_file, data)
+
+	// three file test
+	err = task2.FindCommonWords(result_file, "internal/task_2/files/devil_trigger.txt", "internal/task_2/files/bury_the_light.txt", "internal/task_2/files/no_common1.txt")
+	data, _ = os.ReadFile(result_file)
+	fmt.Printf("FindCommonWords(%s, \"internal/task_2/files/devil_trigger.txt\", \"internal/task_2/files/bury_the_light.txt\", \"internal/task_2/files/no_common1.txt\") = (%v), expected (nil)\n", result_file, err)
+	fmt.Printf("%s file contains: \"%s\"\n", result_file, data)
+
+	// no files test
+	err = task2.FindCommonWords(result_file)
+	data, _ = os.ReadFile(result_file)
+	fmt.Printf("FindCommonWords(%s) = (%v), expected (nil)\n", result_file, err)
+	fmt.Printf("%s file contains: \"%s\"\n", result_file, data)
+
+		// identical files test
+	err = task2.FindCommonWords(result_file, "internal/task_2/files/case_test1.txt", "internal/task_2/files/case_test1.txt")
+	data, _ = os.ReadFile(result_file)
+	fmt.Printf("FindCommonWords(%s, \"internal/task_2/files/case_test1.txt\", \"internal/task_2/files/case_test1.txt\") = (%v), expected (nil)\n", result_file, err)
+	fmt.Printf("%s file contains: \"%s\"\n", result_file, data)
+
+	// empty files test
+	err = task2.FindCommonWords(result_file, "internal/task_2/files/empty1.txt", "internal/task_2/files/empty2.txt")
+	data, _ = os.ReadFile(result_file)
+	fmt.Printf("FindCommonWords(%s, \"internal/task_2/files/empty1.txt\", \"internal/task_2/files/empty2.txt\") = (%v), expected (nil)\n", result_file, err)
+	fmt.Printf("%s file contains: \"%s\"\n", result_file, data)
+
+	// no common files test
+	err = task2.FindCommonWords(result_file, "internal/task_2/files/no_common1.txt", "internal/task_2/files/no_common2.txt")
+	data, _ = os.ReadFile(result_file)
+	fmt.Printf("FindCommonWords(%s, \"internal/task_2/files/no_common1.txt\", \"internal/task_2/files/no_common2.txt\") = (%v), expected (nil)\n", result_file, err)
+	fmt.Printf("%s file contains: \"%s\"\n", result_file, data)
+
+	// different cases file test
+	err = task2.FindCommonWords(result_file, "internal/task_2/files/case_test1.txt", "internal/task_2/files/case_test2.txt")
+	data, _ = os.ReadFile(result_file)
+	fmt.Printf("FindCommonWords(%s, \"internal/task_2/files/case_test1.txt\", \"internal/task_2/files/case_test2.txt\") = (%v), expected (nil)\n", result_file, err)
+	fmt.Printf("%s file contains: \"%s\"\n", result_file, data)
+
+	// invalid file test
+	err = task2.FindCommonWords(result_file, "internal/task_2/files/invalid1.txt", "internal/task_2/files/anoter_invalid.txt")
+	fmt.Printf("FindCommonWords(%s, \"internal/task_2/files/invalid1.txt\", \"internal/task_2/files/anoter_invalid.txt\") = (%v), expected (ErrOpenFile)\n", result_file, err)
+
+	// invalid result file test
+	err = task2.FindCommonWords("invalid/result/file", "internal/task_2/files/devil_trigger.txt", "internal/task_2/files/bury_the_light.txt")
+	fmt.Printf("FindCommonWords(\"invalid/result/file\", \"internal/task_2/files/devil_trigger.txt\", \"internal/task_2/files/bury_the_light.txt\") = (%v), expected (ErrOpenFile)\n", err)
+
+	//task 3 test
+	fmt.Println("\n\nTask 3 tests:")
+	// some tests
 	var a []int
 	err = task3.ScaleSlice(&a, 3)
 	fmt.Println(err)
