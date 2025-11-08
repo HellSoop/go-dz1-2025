@@ -48,10 +48,10 @@ func splitDigits(number int) ([]int) { // function which gets digits from the nu
 func findCommonDigits(firstSet, secondSet []int) map[int]bool { // function witch find matches in both numbers
   commonDigits := make(map[int]bool) // map with common digits and bool type to filter them
 
-  for _, digitsFirstSet := range firstSet {
-    for _, digitsSecondSet := range secondSet {
-      if digitsFirstSet == digitsSecondSet {
-        commonDigits[digitsFirstSet] = true
+  for _, firstSetDigit := range firstSet {
+    for _, secondSetDigit := range secondSet {
+      if firstSetDigit == secondSetDigit {
+        commonDigits[firstSetDigit] = true
         break
       }
     }
