@@ -7,8 +7,8 @@ func FilterCommonDigits(firstNumber, secondNumber int) (int, int, error) {
   }
 
   // slice of digits in numbers
-  firstNumberDigits := splitDigits(firstNumber) 
-  secondNumberDigits := splitDigits(secondNumber)
+  firstNumberDigits := splitDigitsReversed(firstNumber) 
+  secondNumberDigits := splitDigitsReversed(secondNumber)
 
   commonDigits := findCommonDigits(firstNumberDigits, secondNumberDigits) // map witch containes the same digits in both numbers
 
@@ -21,14 +21,14 @@ func FilterCommonDigits(firstNumber, secondNumber int) (int, int, error) {
   }
 
   // build up a number
-  resultedFirstNumber := buildNumber(filteredFirstDigits)
-  resultedSecondNumber := buildNumber(filteredSecondDigits)
+  resultedFirstNumber := buildNumberFromReversed(filteredFirstDigits)
+  resultedSecondNumber := buildNumberFromReversed(filteredSecondDigits)
   
   return resultedFirstNumber, resultedSecondNumber, nil
 }
 
 
-func splitDigits(number int) ([]int) { // function which gets digits from the number and return the slice of digits
+func splitDigitsReversed(number int) ([]int) { // function which gets digits from the number and return the slice of digits
   if (number == 0) { // checking for zero number
     return []int{0}
   }
@@ -37,7 +37,7 @@ func splitDigits(number int) ([]int) { // function which gets digits from the nu
 
   for number > 0 {
     digit := number % 10 // take the last digits from number
-    digits = append([]int{digit}, digits ...) // adding this digits in the begining of slice
+    digits = append(digits, digit) // adding this digits in the begining of slice
     number = number / 10 // shorting the number
   }
 
@@ -74,11 +74,11 @@ func filterDigits(digitsOfNumber []int, filter map[int]bool) []int { // function
 }
 
 
-func buildNumber(digitsNumber []int) int { // function witch build up a number from slice of digits
+func buildNumberFromReversed(digitsNumber []int) int { // function witch build up a number from slice of digits
   buildNumber := 0
   
-  for _, digit := range digitsNumber {
-    buildNumber = buildNumber * 10 + digit
+  for i := len(digitsNumber) - 1; i >= 0; i--  {
+    buildNumber = buildNumber * 10 + digitsNumber[i]
   }
 
   return buildNumber
