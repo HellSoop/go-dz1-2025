@@ -12,10 +12,6 @@ func FilterCommonDigits(firstNumber, secondNumber int) (int, int, error) {
 
   commonDigits := findCommonDigits(firstNumberDigits, secondNumberDigits) // map witch containes the same digits in both numbers
 
-  if len(commonDigits) == 0 { // chech for empty map
-    return firstNumber, secondNumber, nil
-  }
-
   // filtered digits
   filteredFirstDigits := filterDigits(firstNumberDigits, commonDigits)
   filteredSecondDigits := filterDigits(secondNumberDigits, commonDigits)
