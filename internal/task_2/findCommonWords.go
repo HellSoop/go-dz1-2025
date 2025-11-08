@@ -13,30 +13,43 @@ func FindCommonWords(outputFilename string, inputFilenames ...string) error {
 		if err != nil {
 			return ErrOpenFile
 		}
+
 		words_slice := strings.Fields(string(data))
 		
 		if i == 0 {  // first file - create a set
-			for _, w := range words_slice {
-				common_words[w] = true
-			}
+			common_words = createWordsSet(words_slice)
 
 		} else {  // other - check overlap
-			// create set for current file
-			words_set := make(map[string]bool)
-			for _, w := range words_slice {
-				words_set[w] = true
-			}
-
-			// check overlap with commons
-			for word := range common_words {
-				if !words_set[word] {  // default value for bool is false so it will be returned if word isn't in set
-					delete(common_words, word)
-				}
-			}
+			words_set := createWordsSet(words_slice)
+			deleteNonCommonWords(common_words, words_set)
 		}
 	}
 
-	// write output
+	err := writeWordsSetToFile(common_words, outputFilename)
+	return err
+}
+
+
+func createWordsSet(words []string) map[string]bool {
+	words_set := make(map[string]bool)
+	for _, w := range words {
+		words_set[w] = true
+	}
+
+	return  words_set
+}
+
+
+func deleteNonCommonWords(set map[string]bool, filter map[string]bool) {
+	for word := range set {
+		if !filter[word] {  // default value for bool is false so it will be returned if word isn't in set
+			delete(set, word)
+		}
+	}
+}
+
+
+func writeWordsSetToFile(words_set map[string]bool, outputFilename string) error {
 	file, err := os.Create(outputFilename)
 	if err != nil {
 		return ErrOpenFile
@@ -44,11 +57,11 @@ func FindCommonWords(outputFilename string, inputFilenames ...string) error {
 	defer file.Close()
 
 	result_line := ""
-	for word := range common_words {
+	for word := range words_set {
 		result_line += word + " "
 	}
 	
 	file.Write([]byte(result_line))
-
+	
 	return nil
 }
