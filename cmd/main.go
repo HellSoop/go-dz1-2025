@@ -8,6 +8,7 @@ import (
 	"dz1/internal/task_3"
 )
 
+
 func main() {
 	// Check task1
 	fmt.Println("Task 1 tests:")
